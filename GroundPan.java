@@ -112,7 +112,7 @@ class GroundPan extends JPanel implements MouseListener, MouseMotionListener
 			pt.setXY(x+10 , y + 10);
 			pt.setBounds(x+10, y + 10, 10, 10);
 			landPan.add(pt , new Integer(60));
-			buildTower.observe(e.getY()/30 ,e.getX()/30, land); // Á¤Âû¿µ¿ª
+			buildTower.observe(e.getY()/30 ,e.getX()/30, land); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			gm.addAllTower(buildTower);
 			buildTower = null;
 			mousePan.setVisible(false);
@@ -146,7 +146,7 @@ class GroundPan extends JPanel implements MouseListener, MouseMotionListener
 	{
 		if (buildTower != null)
 		{
-			//System.out.println("¸Ş·Õ");
+			//System.out.println("ï¿½Ş·ï¿½");
 			int x = e.getX() - e.getX()%15;
 			int y = e.getY() - e.getY()%15;
 			mousePan.setBounds(x, y, 30 ,30);
@@ -224,11 +224,11 @@ class Land extends JPanel
 		Toolkit toolit = Toolkit.getDefaultToolkit();
 		try{
 			if ( t == 1)
-				img = toolit.getImage("./ÀÌ¹ÌÁö/¶¥.gif");
+				img = toolit.getImage("./ì´ë¯¸ì§€/ë•….gif");
 		else if (t == 0)
-				img = toolit.getImage("./ÀÌ¹ÌÁö/Ç®1.gif");
+				img = toolit.getImage("./ì´ë¯¸ì§€/í’€1.gif");
 		else
-				img = toolit.getImage("./ÀÌ¹ÌÁö/»ê.gif");		
+				img = toolit.getImage("./ì´ë¯¸ì§€/ì‚°.gif");		
 		}catch(Exception e){
 			System.out.println(e);
 		}		
@@ -290,7 +290,7 @@ class Land extends JPanel
 			{
 				Tower t = towerVec.get(i);
 				t.lostUnit(u);
-				//System.out.println("À¯´ÖÅ»Ãâ");
+				//System.out.println("ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½");
 			}
 		}
 		else

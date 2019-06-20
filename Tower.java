@@ -33,10 +33,10 @@ class Tower extends Canvas implements ActionListener, MouseListener
 	JButton buyBtn, cancelBtn;
 	JButton upgradeBtn, sellBtn;
 	JPanel informationPan;
-	boolean build; // °Ç¼³µÇ¾ú³ª?
+	boolean build; // ï¿½Ç¼ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½?
 	String information;
 	GameManager gm;
-	javax.swing.Timer atk; // °ø°İ ½Ã°£
+	javax.swing.Timer atk; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	Potan potan;
 			
     Tower(String n, int a, int r, int s, String atype, int c, String i, GameManager g)
@@ -50,7 +50,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		information = i;
 		gm = g;
 		potan = new Potan();
-		atk = new javax.swing.Timer(speed, this); //°ø°İ ½Ã°£´ç ¼Óµµ
+		atk = new javax.swing.Timer(speed, this); //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Óµï¿½
 		searchLands = new Vector<Land>();
 
         g2 = (Graphics2D)super.getGraphics();
@@ -65,31 +65,31 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		inforPan.removeAll();
 		inforPan.setBorder(new TitledBorder(""));
 		inforPan.setLayout(new BoxLayout(inforPan, BoxLayout.Y_AXIS));
-		inforPan.setAlignmentX(inforPan.LEFT_ALIGNMENT ); // ¿ŞÂÊÁ¤·Ä
-		inforPan.add(new JLabel("ÀÌ¸§ : " + name));
-		inforPan.add(new JLabel("°ø°İ·Â : " + String.valueOf(attact)));
-		inforPan.add(new JLabel("»çÁ¤°Å¸® : " + String.valueOf(range)));
-		inforPan.add(new JLabel("¼Óµµ : " + String.valueOf(speed)));		
-		inforPan.add(new JLabel("°ø°İÅ¸ÀÔ : " + attactType));
-		inforPan.add(new JLabel("µî ±Ş : " + String.valueOf(upgrade)));
-		inforPan.add(new JLabel("°¡°İ  : " + String.valueOf(cost)));
-		inforPan.add(new JLabel("Á¤º¸ : "+ information));
-		if (build == false) // ºôµå°¡ ¾ÈµÇ¾îÀÖÀ» ½Ã
+		inforPan.setAlignmentX(inforPan.LEFT_ALIGNMENT ); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		inforPan.add(new JLabel("ì´ë¦„ : " + name));
+		inforPan.add(new JLabel("ê³µê²©ë ¥ : " + String.valueOf(attact)));
+		inforPan.add(new JLabel("ì‚¬ì •ê±°ë¦¬ : " + String.valueOf(range)));
+		inforPan.add(new JLabel("ì†ë„ : " + String.valueOf(speed)));		
+		inforPan.add(new JLabel("ê³µê²©íƒ€ì… : " + attactType));
+		inforPan.add(new JLabel("ë“±  ê¸‰ : " + String.valueOf(upgrade)));
+		inforPan.add(new JLabel("ê°€ê²© : " + String.valueOf(cost)));
+		inforPan.add(new JLabel("ì •ë³´ : "+ information));
+		if (build == false) // ï¿½ï¿½ï¿½å°¡ ï¿½ÈµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		{
 			
-			buyBtn = new JButton("±¸ ÀÔ");
+			buyBtn = new JButton("êµ¬  ì…");
 			buyBtn.addActionListener(this);
 			inforPan.add(buyBtn);
 		}
 		else // (build == true)
 		{
-			sellBtn = new JButton("ÆÈ ±â");
+			sellBtn = new JButton("íŒ”  ê¸°");
 			inforPan.add(sellBtn);
 			sellBtn.addActionListener(this);
-			inforPan.add(new JLabel("---*¾÷±×·¹ÀÌµå*---"));
-			inforPan.add(new JLabel("°ø°İ·Â : " + String.valueOf(attact * 3)));
-			inforPan.add(new JLabel("ºñ ¿ë : " + String.valueOf(cost *2 + cost/2)));
-			upgradeBtn = new JButton("¾÷±×·¡ÀÌµå");
+			inforPan.add(new JLabel("---*ì—…ê·¸ë ˆì´ë“œ*---"));
+			inforPan.add(new JLabel("ê³µê²©ë ¥ : " + String.valueOf(attact * 3)));
+			inforPan.add(new JLabel("ë¹„  ìš© : " + String.valueOf(cost *2 + cost/2)));
+			upgradeBtn = new JButton("ì—…ê·¸ë ˆì´ë“œ");
 			inforPan.add(upgradeBtn);
 			upgradeBtn.addActionListener( this);
 		}
@@ -105,7 +105,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		}
 		else if (ev.getSource() == upgradeBtn)
 		{
-			if (upgrade < 6) //¾÷±×·¹ÀÌµå´Â 5 ´Ü°è±îÁö
+			if (upgrade < 6) //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ 5 ï¿½Ü°ï¿½ï¿½ï¿½ï¿½
 			{
 				gm.upgrade(this, cost *2 + cost/2); 
 			}
@@ -118,7 +118,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		}
 		if (targetUnit != null)
 		{
-			//Æ÷Åº potan = new Æ÷Åº(ptX0, ptY0);
+			//ï¿½ï¿½Åº potan = new ï¿½ï¿½Åº(ptX0, ptY0);
 			//ptVec.add(potan);
 			potan.shootting();
 		}
@@ -136,7 +136,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 	{
 		build = true;
 
-		int startI = sero - range;  //Á¤Âû À§Ä¡(°¡·Î, ¼¼·Î ÁÂÇ¥)
+		int startI = sero - range;  //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥)
 		if (startI < 0)
 			startI = 0;
 		int endI = sero + range;
@@ -161,7 +161,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 					//land[i][j].setMouseIn(true);
 					searchLands.add(land[i][j]);
 					land[i][j].addTower(this);
-					//System.out.println("land[" + i + "][" + j + "]°¡ Á¤Âû¿µ¿ª¿¡ Æ÷ÇÔµÇ¾ú½À´Ï´Ù.");
+					//System.out.println("land[" + i + "][" + j + "]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 				}
 			}
 		}
@@ -182,12 +182,12 @@ class Tower extends Canvas implements ActionListener, MouseListener
 	public int getPositionJ(){
 		return positionJ;
 	}
-	public void »çÁ¤°Å¸®°è»ê(Unit u) //»çÁ¤°Å¸® 
+	public void  scopeDistance(Unit u) //ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ 
 	{
 		if (targetUnit == null)
 		{
 			targetUnit = u; 
-			atk.start();     //°ø°İ ½ÃÀÛ
+			atk.start();     //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 		else if (targetUnit == u)
 		{
@@ -197,11 +197,11 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		{}
 	}
 
-	public void lostUnit(Unit u) //À¯´ÖÀÌ ¾ø¾îÁú ¶§
+	public void lostUnit(Unit u) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	{
 		if (u == targetUnit)
 		{
-			targetUnit = null;  //°ø°İ.stop();
+			targetUnit = null;  //ï¿½ï¿½ï¿½ï¿½.stop();
 		}
 	}
 
@@ -213,11 +213,11 @@ class Tower extends Canvas implements ActionListener, MouseListener
 			//	gm.boom(ptVec.get(i));
 			targetUnit = null;
 			//ptVec.clear();
-			atk.stop(); //°ø°İ ¸ØÃã
+			atk.stop(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	
-	public void upgrade() //¾÷±×·¹ÀÌµå
+	public void upgrade() //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½
 	{
 		attact = attact * 3;
 		cost = (cost *2 + cost/2) + cost / 2;
@@ -227,7 +227,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		repaint();
 	}
 
-    public void turn(int mx, int my) // °¢µµº¯°æ
+    public void turn(int mx, int my) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         mouseX = mx;
         mouseY = my;
@@ -282,18 +282,18 @@ class Tower extends Canvas implements ActionListener, MouseListener
 	
 		public void paint(Graphics g)
 		{
-			if (name.equals("±âº»Å¸¿ö"))
+			if (name.equals("ê¸°ë³¸íƒ€ì›Œ"))
 				g.setColor(Color.black);
-			else if (name.equals("ÆÄÀÌ¾îÅ¸¿ö"))
+			else if (name.equals("íŒŒì´ì–´íƒ€ì›Œ"))
 				g.setColor(Color.red);
-			else if (name.equals("¾ÆÀÌ½ºÅ¸¿ö")){
+			else if (name.equals("ì•„ì´ìŠ¤íƒ€ì›Œ")){
 				g.setColor(Color.black);
 				g.fillRect(0,0,5,5);
 				g.setColor(Color.white);
 			}
-			else if (name.equals("¿¡¾îÅ¸¿ö"))				
+			else if (name.equals("ì—ì–´íƒ€ì›Œ"))				
 				g.setColor(Color.blue);
-			else if (name.equals("µ¶Å¸¿ö")){
+			else if (name.equals("í¬ì´ì¦Œíƒ€ì›Œ")){
 				g.setColor(Color.black);
 				g.fillRect(0,0,5,5);
 				g.setColor(Color.green);
@@ -373,8 +373,8 @@ class Tower extends Canvas implements ActionListener, MouseListener
 	
 				if (ptXStop && ptYStop)
 				{
-					//System.out.println("¸íÁß");
-					¸íÁß();
+					//System.out.println("ï¿½ï¿½ï¿½ï¿½");
+					hit();
 					setVisible(false);
 					timer.stop();
 					ptX = ptX0;
@@ -384,7 +384,7 @@ class Tower extends Canvas implements ActionListener, MouseListener
 		}
 	}
 
-	public void ¸íÁß()
+	public void hit()
 	{
 		targetUnit.damage(attact , Color.black, false);
 	}
@@ -395,9 +395,9 @@ class NomalTower extends Tower
 	Image img;
 	NomalTower(GameManager gm)
 	{
-		super("±âº»Å¸¿ö",15, 1, 800,"Áö»ó+°øÁß",20, "ÃÊ¹İ¿ë Å¸¿öÀÔ´Ï´Ù.", gm);
+		super("ê¸°ë³¸íƒ€ì›Œ",15, 1, 800,"ì§€ìƒ+ê³µì¤‘",20, "ê¸°ë³¸ íƒ€ì›Œì…ë‹ˆë‹¤.", gm);
 		Toolkit toolit = Toolkit.getDefaultToolkit();
-		img = toolit.getImage("./ÀÌ¹ÌÁö/Ç®1.gif");
+		img = toolit.getImage("./ì´ë¯¸ì§€/í’€1.gif");
 	}
 
 	public void paint(Graphics g)
@@ -427,7 +427,7 @@ class NomalTower extends Tower
 		g2.drawRect(0,-2,14,4);
         g2.fillOval(-6,-6,12,12);			
     }
-	public void ¸íÁß()
+	public void hit()
 	{
 		targetUnit.damage(attact , Color.black , false);
 	}
@@ -438,9 +438,9 @@ class FireTower extends Tower
 	Image img;
 	FireTower(GameManager gm)
 	{// Tower(String n, int a, int r, int s, String atype, int c, String i)
-		super("ÆÄÀÌ¾îÅ¸¿ö", 25, 1, 1000, "Áö»ó", 100, "¹üÀ§°ø°İÀ»ÇÕ´Ï´Ù.", gm);
+		super("íŒŒì´ì–´íƒ€ì›Œ", 25, 1, 1000, "ì§€ìƒ", 100, "ë²”ìœ„ê³µê²©ì„ í•©ë‹ˆë‹¤.", gm);
 		Toolkit toolit = Toolkit.getDefaultToolkit();
-		img = toolit.getImage("./ÀÌ¹ÌÁö/Ç®1.gif");
+		img = toolit.getImage("./ì´ë¯¸ì§€/í’€1.gif");
 	}
 
 	public void paint(Graphics g)
@@ -472,7 +472,7 @@ class FireTower extends Tower
         g2.fillRect(-4,-7,8,14);		
     }
 
-	public void ¸íÁß()
+	public void hit()
 	{
 		targetUnit.damage(attact ,  Color.red , true);
 	}
@@ -483,9 +483,9 @@ class IceTower extends Tower
 	Image img;
 	IceTower(GameManager gm)
 	{
-		super("¾ÆÀÌ½ºÅ¸¿ö", 10, 2, 800, "Áö»ó+°øÁß", 200, "¹üÀ§°ø°İ¹× ÇÁ·ÎÁğÅ¸¿ö", gm);
+		super("ì•„ì´ìŠ¤íƒ€ì›Œ", 10, 2, 800, "ì§€ìƒ+ê³µì¤‘", 200, "ë²”ìœ„ê³µê²© ë° ì´ë™ì†ë„ê°ì†Œ", gm);
 		Toolkit toolit = Toolkit.getDefaultToolkit();
-		img = toolit.getImage("./ÀÌ¹ÌÁö/Ç®1.gif");
+		img = toolit.getImage("./ì´ë¯¸ì§€/í’€1.gif");
 	}
 
 	public void paint(Graphics g)
@@ -498,10 +498,10 @@ class IceTower extends Tower
 		g.drawImage(img,0,0,30,30,this);
 		if (GameManager.select == this)
 		{
-			g.setColor(Color.blue); // ¾ÆÀÌ½ºÅ¸¿ö ¼±ÅÃÇßÀ» ¶§ ÆÄ¶û»ö¹è°æ
-			g.fillRect(1,1,28,28); //¾ÆÀÌ½ºÅ¸¿ö »ç°¢Çü Å©±â
+			g.setColor(Color.blue); // ï¿½ï¿½ï¿½Ì½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			g.fillRect(1,1,28,28); //ï¿½ï¿½ï¿½Ì½ï¿½Å¸ï¿½ï¿½ ï¿½ç°¢ï¿½ï¿½ Å©ï¿½ï¿½
 		}
-		g.setColor(Color.black);//ÀÌ¹ÌÁö ´ë°¢¼± °ËÁ¤»ö
+		g.setColor(Color.black);//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		g.drawRect(1,1,28,28);
 		g.drawLine(1,1,28,28);
 		g.drawLine(28,1,1,28);
@@ -517,20 +517,20 @@ class IceTower extends Tower
 		g2.drawLine(0,6,14,2);		
     }
 
-	public void ¸íÁß()
+	public void hit()
 	{
-		targetUnit.damage(attact , Color.white , true); //Å¸°ÙÀÌ ¸íÁß µÇ¾úÀ» ¶§ Èò »öÀ¸·Î µÊ
+		targetUnit.damage(attact , Color.white , true); //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	}
 }
 
-class AirTower extends Tower  //Å¸¿ö Å¬·¡½º ¾È¿¡ »ó¼ÓµÇ´Â ¿¡¾îÅ¸¿ö Å¬·¡½º¸¦ ¸¸µç´Ù(¿¡¾î Å¸¿ö Á¤º¸)
+class AirTower extends Tower  //Å¸ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ÓµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 {
 	Image img;
 	AirTower(GameManager gm)
 	{
-		super("¿¡¾îÅ¸¿ö", 50, 2, 800, "°øÁß", 250, "¹üÀ§°ø°İÀÔ´Ï´Ù.", gm);	//¿¡¾îÅ¸¿öÀÇ Á¤º¸
+		super("ì—ì–´íƒ€ì›Œ", 50, 2, 800, "ê³µì¤‘", 250, "ë²”ìœ„ê³µê²©ì…ë‹ˆë‹¤.", gm);	//ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		Toolkit toolit = Toolkit.getDefaultToolkit(); //
-		img = toolit.getImage("./ÀÌ¹ÌÁö/Ç®1.gif"); // ¹è°æÀÌ Ç®ÀÌ¹ÌÁö
+		img = toolit.getImage("./ì´ë¯¸ì§€/í’€1.gif"); // ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½Ì¹ï¿½ï¿½ï¿½
 	}
 
 	public void paint(Graphics g)
@@ -543,27 +543,27 @@ class AirTower extends Tower  //Å¸¿ö Å¬·¡½º ¾È¿¡ »ó¼ÓµÇ´Â ¿¡¾îÅ¸¿ö Å¬·¡½º¸¦ ¸¸µç
 		g.drawImage(img,0,0,30,30,this);
 		if (GameManager.select == this)
 		{
-			g.setColor(Color.yellow); //¿¡¾îÅ¸¿ö ¼±ÅÃÇßÀ» ¶§ ³ë¶õ»ö ¹è°æ
+			g.setColor(Color.yellow); //ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			g.fillRect(1,1,28,28); //
 		}
-		g.setColor(Color.black); //ÀÌ¹ÌÁö ´ë°¢¼± °ËÁ¤»ö
+		g.setColor(Color.black); //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		g.drawRect(1,1,28,28);
 		g.drawLine(1,1,28,28);
 		g.drawLine(28,1,1,28);
 		
 		g.setColor(Color.orange);
-		for (int i = 0 ; i < upgrade ; i++ ) // ¾÷±×·¹ÀÌµå ‰çÀ» ¶§ ÁÖÈ²»ö ÄÃ·¯ ÀÛÀº »ç°¢Çü Ç¥½Ã
-			g.fillRect(2,26 - i*5,10,4); //5´Ü°è ¾÷±×·¹ÀÌµå µÊ
+		for (int i = 0 ; i < upgrade ; i++ ) // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ç°¢ï¿½ï¿½ Ç¥ï¿½ï¿½
+			g.fillRect(2,26 - i*5,10,4); //5ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½
 
-		g2.setColor(Color.blue);// ¿¡¾îÅ¸¿ö ¾ÆÀÌÄÜ
+		g2.setColor(Color.blue);// ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		g2.fillRect(-6,-6,6,12);
 		g2.fillRect(0,-4,12,3);
 		g2.fillRect(0,1,12,3);			
     }
 
-	public void ¸íÁß()
+	public void hit()
 	{
-		targetUnit.damage(attact , Color.blue, true); //Å¸°ÙÀÌ ¸íÁß µÇ¾úÀ» ¶§ ÆÄ¶õ»öÀ¸·Î µÊ
+		targetUnit.damage(attact , Color.blue, true); //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	}
 }
 
@@ -572,9 +572,9 @@ class PoisonTower extends Tower
 	Image img;
 	PoisonTower(GameManager gm)
 	{
-		super("µ¶Å¸¿ö",20, 3, 1000, "Áö»ó+°øÁß", 150, "ÀûÀ» Áßµ¶½ÃÅµ´Ï´Ù.", gm);	//µ¶Å¸¿öÀÇ Á¤º¸
+		super("í¬ì´ì¦Œíƒ€ì›Œ",20, 3, 1000, "ì§€ìƒ+ê³µì¤‘", 150, "ì ì„ ì¤‘ë…ì‹œí‚µë‹ˆë‹¤.", gm);	//ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		Toolkit toolit = Toolkit.getDefaultToolkit();
-		img = toolit.getImage("./ÀÌ¹ÌÁö/Ç®1.gif"); // Ç® ÀÌ¹ÌÁö¿¡¸¸ ³ÖÀ» ¼ö ÀÖ´Ù. 
+		img = toolit.getImage("./ì´ë¯¸ì§€/í’€1.gif"); // Ç® ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½. 
 	}
 
 	public void paint(Graphics g)
@@ -587,7 +587,7 @@ class PoisonTower extends Tower
 		g.drawImage(img,0,0,30,30,this);
 		if (GameManager.select == this)
 		{
-			g.setColor(Color.yellow);//µ¶Å¸¿ö ¼±ÅÃÇßÀ» ¶§ ³ë¶õ»ö ¹è°æ
+			g.setColor(Color.yellow);//ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			g.fillRect(1,1,28,28);
 		}
 		g.setColor(Color.black);
@@ -596,17 +596,17 @@ class PoisonTower extends Tower
 		g.drawLine(28,1,1,28);
 		
 		g.setColor(Color.orange);
-		for (int i = 0 ; i < upgrade ; i++ ) // ¾÷±×·¹ÀÌµå ‰çÀ» ¶§ ÁÖÈ²»ö ÄÃ·¯ ÀÛÀº »ç°¢Çü Ç¥½Ã
-			g.fillRect(2,26 - i*5,10,4); // 5´Ü°è ¾÷±×·¹ÀÌµå µÊ
+		for (int i = 0 ; i < upgrade ; i++ ) // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ç°¢ï¿½ï¿½ Ç¥ï¿½ï¿½
+			g.fillRect(2,26 - i*5,10,4); // 5ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½
 
-		g2.setColor(Color.black); //ÀÌ¹ÌÁö ´ë°¢¼± °ËÁ¤»ö
+		g2.setColor(Color.black); //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		g2.drawRect(0,-6,12,3);
 		g2.drawRect(0,3,12,3);
-		g2.setColor(Color.green);// µ¶Å¸¿ö ÃÊ·Ï»ö ¾ÆÀÌÄÜ
+		g2.setColor(Color.green);// ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ê·Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		g2.fillOval(-6,-6,12,12);		
     }
 	
-	public void ¸íÁß()
+	public void hit()
 	{
 		targetUnit.damage(attact, Color.green, false);
 	}

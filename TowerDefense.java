@@ -16,7 +16,7 @@ public class TowerDefense
 
 	TowerDefense()
 	{
-		frame = new JFrame("Å¸¿öµğÆæ½º");
+		frame = new JFrame("íƒ€ì›Œë””íœìŠ¤");
 		con = frame.getContentPane();
 		launchFrame();
 	}
@@ -129,23 +129,23 @@ class GameManager extends JPanel implements ActionListener
 		System.out.println(name);
 		if (money >= cost)
 		{
-			if (name.equals("±âº»Å¸¿ö"))
+			if (name.equals("ê¸°ë³¸íƒ€ì›Œ"))
 				tower = new NomalTower(this);
-			else if (name.equals("ÆÄÀÌ¾îÅ¸¿ö"))
+			else if (name.equals("íŒŒì´ì–´íƒ€ì›Œ"))
 				tower = new FireTower(this);
-			else if (name.equals("¾ÆÀÌ½ºÅ¸¿ö"))
+			else if (name.equals("ì•„ì´ìŠ¤íƒ€ì›Œ"))
 				tower = new IceTower(this);
-			else if (name.equals("¿¡¾îÅ¸¿ö"))
+			else if (name.equals("ì—ì–´íƒ€ì›Œ"))
 				tower = new AirTower(this);
-			else if (name.equals("µ¶Å¸¿ö"))
+			else if (name.equals("ë…íƒ€ì›Œ"))
 				tower = new PoisonTower(this);
 			else 
-				System.out.println("¸¸Á·ÇÏ´Â Å¸¿ö°¡ ¾ø½À´Ï´Ù.");
+				System.out.println("ë§Œì¡±í•˜ëŠ” íƒ€ì›Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 			tower.addMouseListener(tower);
 			ground.buildTower(tower , cost);
 		}
 		else
-			System.out.println("µ·ÀÌºÎÁ·ÇØ¿ä");
+			System.out.println("ëˆì´ë¶€ì¡±í•´ìš”");
 	}
 	public void buy(int cost)
 	{
@@ -161,7 +161,7 @@ class GameManager extends JPanel implements ActionListener
 	public void upgrade(Tower t , int cost)
 	{
 		if (money < cost){
-			System.out.println("¾÷±×·¡ÀÌµå ºñ¿ëÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+			System.out.println("ì—…ê·¸ë˜ì´ë“œ ë¹„ìš©ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
 		}
 		else
 		{
@@ -199,7 +199,7 @@ class GameManager extends JPanel implements ActionListener
 		else if (level % 5 == 0)
 			unit = new BossUnit(0, ground.getLand(), this , level);
 		else
-			System.out.println("¸Â´ÂÅ¸ÀÔÀÇ À¯´ÖÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("ë§ëŠ”íƒ€ì…ì˜ ìœ ë‹›ì´ ì—†ìŠµë‹ˆë‹¤.");
 				
 		unit.addMouseListener(unit);
 		ground.addUnit(unit);
@@ -208,7 +208,7 @@ class GameManager extends JPanel implements ActionListener
 		return unit;
 	}
 
-	public void actionPerformed(ActionEvent ae)
+	public void actionPerformed(ActionEvent ae) //ê²Œì„ ì‹œì‘ ì´ë²¤íŠ¸
 	{
 		if (playing == false)
 		{
@@ -219,14 +219,13 @@ class GameManager extends JPanel implements ActionListener
 		}
 	}
 	
-	
-	public void actionPerformed(ActionEvent e)
+	public void actionPerformed1(ActionEvent e) // ì¼ì‹œì •ì§€ ì´ë²¤íŠ¸
 	{
 		isStopStart = !isStopStart;
 		if(isStopStart) {
-			stopStartBtn.setText("ÀÏ½ÃÁ¤Áö");
+			stopStartBtn.setText("ì¼ì‹œì •ì§€");
 		} else {
-			stopStartBtn.setText("´Ù½Ã½ÇÇà");
+			stopStartBtn.setText("ë‹¤ì‹œì‹¤í–‰");
 		}
 	}
 
@@ -252,8 +251,8 @@ class GameManager extends JPanel implements ActionListener
 			if (playing)
 			{
 				playing = false;
-				JOptionPane.showMessageDialog(new JFrame(),"°ÔÀÓ¿À¹ö","¾Ë¸²",JOptionPane.PLAIN_MESSAGE);
-				System.out.println("°ÔÀÓ¿À¹ö");				
+				JOptionPane.showMessageDialog(new JFrame(),"ê²Œì„ì˜¤ë²„","ì•Œë¦¼",JOptionPane.PLAIN_MESSAGE);
+				System.out.println("ê²Œì„ì˜¤ë²„");				
 				td.GameReset();
 			}			
 			rightPan.setEnabledStartBtn(true);
@@ -267,11 +266,11 @@ class TopPan extends JPanel
 	
 	TopPan(int m)
 	{
-		levelJL = new JLabel("ÇöÁ¦·¹º§ : 1");
-		nextTimeJL = new JLabel("´ÙÀ½½Ã°£ : 30");
-		moneyJL = new JLabel("µ· : " + String.valueOf(m) +"¿ø");
-		scoreJL = new JLabel("Á¡¼ö : 0");
-		lifeJL = new JLabel("»ı¸í : 20");
+		levelJL = new JLabel("í˜„ì œë ˆë²¨ : 1");
+		nextTimeJL = new JLabel("ë‹¤ìŒì‹œê°„ : 30");
+		moneyJL = new JLabel("ëˆ : " + String.valueOf(m) +"ì›");
+		scoreJL = new JLabel("ì ìˆ˜ : 0");
+		lifeJL = new JLabel("ìƒëª… : 20");
 		launchTopPan();
 	}
 	
@@ -288,19 +287,19 @@ class TopPan extends JPanel
 	}
 	
 	public void setLevelJL(int l) {
-		levelJL.setText("ÇöÁ¦·¹º§ : " + String.valueOf(l));
+		levelJL.setText("í˜„ì œë ˆë²¨ : " + String.valueOf(l));
 	}
 	public void setNextTimeJL(int t) {
-		nextTimeJL.setText("´ÙÀ½½Ã°£ : " + String.valueOf(t));
+		nextTimeJL.setText("ë‹¤ìŒì‹œê°„ : " + String.valueOf(t));
 	}
 	public void setMoneyJL(int m) {
-		moneyJL.setText("µ· : " + String.valueOf(m));
+		moneyJL.setText("ëˆ : " + String.valueOf(m));
 	}
 	public void setScoreJL(int s) {
-		scoreJL.setText("Á¡¼ö : " + String.valueOf(s));
+		scoreJL.setText("ì ìˆ˜ : " + String.valueOf(s));
 	}
 	public void setLifeJL(int l){
-		lifeJL.setText("»ı¸í : " + String.valueOf(l));
+		lifeJL.setText("ìƒëª… : " + String.valueOf(l));
 	}
 
 }
@@ -309,8 +308,8 @@ class LeftPan extends JPanel
 {
 	GroundPan groundPan;
 	JPanel unitLevelPan;
-	String data[][] = {{"·¹º§1","·¹º§2","·¹º§3","·¹º§4","·¹º§5"},{"ÈòµÕÀÌ","¹ú·¹","±â»ıÃæ","¿ë","º¸½º",}};
-	String ¼Ó¼º[] = {"·¹º§1","·¹º§2","·¹º§3","·¹º§4","·¹º§5"};
+	String data[][] = {{"ë ˆë²¨1","ë ˆë²¨2","ë ˆë²¨3","ë ˆë²¨4","ë ˆë²¨5"},{"í°ë‘¥ì´","ë²Œë ˆ","ê¸°ìƒì¶©","ìš©","ë³´ìŠ¤",}};
+	String ì†ì„±[] = {"ë ˆë²¨1","ë ˆë²¨2","ë ˆë²¨3","ë ˆë²¨4","ë ˆë²¨5"};
 	
 	LeftPan(GroundPan gp)
 	{
@@ -327,7 +326,7 @@ class LeftPan extends JPanel
 		add(groundPan);
 		unitLevelPan.setBounds(10,370,480,70);
 		unitLevelPan.setBorder(new TitledBorder(""));
-		JTable unitLevel = new JTable(data, ¼Ó¼º);
+		JTable unitLevel = new JTable(data, ì†ì„±);
 		unitLevelPan.add(unitLevel);
 		add(unitLevelPan);
 	}	
@@ -346,9 +345,9 @@ class RightPan extends JPanel
 		isStopStart = true;
 		
 		this.gm = gm;
-		startBtn = new JButton("°ÔÀÓ½ÃÀÛ");
+		startBtn = new JButton("ê²Œì„ì‹œì‘"); // ê²Œì„ì‹œì‘ë²„íŠ¼
 		startBtn.addActionListener(gm);
-		stopStartBtn = new JButton("ÀÏ½ÃÁ¤Áö");
+		stopStartBtn = new JButton("ì¼ì‹œì •ì§€"); //ì¼ì‹œì •ì§€ë²„íŠ¼
 		stopStartBtn.setEnabled(true);
 		launchRightPan();
 	}
@@ -389,9 +388,9 @@ class RightPan extends JPanel
 		inforPan.setBorder(new TitledBorder(""));
 		inforPan.setLayout(cardLayout);
 		informationPan = new JPanel();
-		inforPan.add("µğÆúÆ®", new JPanel());
-		inforPan.add("Á¤º¸", informationPan);
-		cardLayout.show(inforPan,"µğÆúÆ®");
+		inforPan.add("ë””í´íŠ¸", new JPanel());
+		inforPan.add("ì •ë³´", informationPan);
+		cardLayout.show(inforPan,"ë””í´íŠ¸");
 						
 		add(btnPan);
 		add(towerPan);
@@ -403,8 +402,8 @@ class RightPan extends JPanel
     {
 		informationPan.removeAll();
 		informationPan.add(in);
-		cardLayout.show(inforPan,"µğÆúÆ®");
-		cardLayout.show(inforPan,"Á¤º¸");
+		cardLayout.show(inforPan,"ë””í´íŠ¸");
+		cardLayout.show(inforPan,"ì •ë³´");
 	}
 	public void setEnabledStartBtn(boolean b)
 	{

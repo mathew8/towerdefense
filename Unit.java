@@ -11,7 +11,7 @@ import java.util.*;
 class Unit extends Canvas implements  ActionListener , MouseListener
 {
 	String name;
-	JLabel lifeJL, speedJL, Æ¯Â¡JL, »óÅÂJL;
+	JLabel lifeJL, speedJL, featureJL, statusJL;
 	String type;
 	int life;
 	int speed = 100;
@@ -28,7 +28,7 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 	Land land[][];
 	Land currentLand;
 	GameManager gm;
-	boolean µ¥¹ÌÁö;
+	boolean damage;
 	JPanel inforPan;
 	double radian;
 	Color damageColor;
@@ -46,10 +46,10 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 		this.gm = gm;
 		type = t;
 		this.size = size;
-		lifeJL = new JLabel("¶óÀÌÇÁ : " + String.valueOf(life));
-		speedJL = new JLabel("½ºÇÇµå : " + String.valueOf(speed));
-		Æ¯Â¡JL = new JLabel("Æ¯Â¡ : ¾øÀ½");
-		»óÅÂJL = new JLabel("»óÅÂ : ¾çÈ£");
+		lifeJL = new JLabel("ë¼ì´í”„ : " + String.valueOf(life));
+		speedJL = new JLabel("ìŠ¤í”¼ë“œ : " + String.valueOf(speed));
+		featureJL = new JLabel("íŠ¹ì§• : ì—†ìŒ");
+		statusJL = new JLabel("ìƒíƒœ : ì–‘í˜¸");
 		inforPan = new JPanel();
 		setBounds(70, 0, size,size);
 		if (way == 0)
@@ -68,12 +68,12 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 		{
 			freeze = true;
 			if (poisoning)
-				»óÅÂJL.setText("»óÅÂ : ¾óÀ½ + Áßµ¶");
+				statusJL.setText("ìƒíƒœ : ì–¼ìŒ + ì¤‘ë…");
 			else
-				»óÅÂJL.setText("»óÅÂ : ¾óÀ½");
+				statusJL.setText("ìƒíƒœ : ì–¼ìŒ");
 
 			timer.setDelay(speed + speed / 3);
-			speedJL.setText("½ºÇÇµå : " + String.valueOf(speed + speed / 3));
+			speedJL.setText("ìŠ¤í”¼ë“œ : " + String.valueOf(speed + speed / 3));
 			try{
 				Thread.sleep(5000);
 			}catch(Exception e){
@@ -81,11 +81,11 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 			}
 			timer.setDelay(speed);
 			freeze = false;
-			speedJL.setText("½ºÇÇµå : " + String.valueOf(speed));
+			speedJL.setText("ìŠ¤í”¼ë“œ : " + String.valueOf(speed));
 			if (poisoning)
-				»óÅÂJL.setText("»óÅÂ : Áßµ¶");
+				statusJL.setText("ìƒíƒœ : ì¤‘ë…");
 			else
-				»óÅÂJL.setText("»óÅÂ : ¾çÈ£");
+				statusJL.setText("ìƒíƒœ : ì–‘í˜¸");
 		}
 	};
 
@@ -95,9 +95,9 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 		{
 			poisoning = true;
 			if (freeze)
-				»óÅÂJL.setText("»óÅÂ : ¾óÀ½ + Áßµ¶");
+				statusJL.setText("ìƒíƒœ : ì–¼ìŒ + ì¤‘ë…");
 			else
-				»óÅÂJL.setText("»óÅÂ : Áßµ¶");
+				statusJL.setText("ìƒíƒœ : ì¤‘ë…");
 
 			for (int i = 0 ; i < 10 ; i++ )
 			{
@@ -111,9 +111,9 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 			timer.setDelay(speed);
 			poisoning = false;
 			if (freeze)
-				»óÅÂJL.setText("»óÅÂ : ¾óÀ½");
+				statusJL.setText("ìƒíƒœ : ì–¼ìŒ");
 			else
-				»óÅÂJL.setText("»óÅÂ : ¾çÈ£");
+				statusJL.setText("ìƒíƒœ : ì–‘í˜¸");
 		}
 	};
 
@@ -156,8 +156,8 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 
 		damageColor = c;
 		life = life - d;
-		lifeJL.setText("¶óÀÌÇÁ : " + String.valueOf(life));
-		µ¥¹ÌÁö = true;
+		lifeJL.setText("ë¼ì´í”„ : " + String.valueOf(life));
+		damage = true;
 
 		if (life < 1)
 		{
@@ -213,7 +213,7 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 			currentLand = land[imsiY][imsiX];
 			currentLand.addUnitVec(this);
 		}
-		°Ü³ÉÅ¸¿ö(currentLand.getTower());
+		aimTower(currentLand.getTower());
 		
 		if ( xx && yy)
 		{
@@ -234,15 +234,15 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 		return type;
 	}
 
-	public void °Ü³ÉÅ¸¿ö(Vector <Tower>towerVec)
+	public void aimTower (Vector <Tower>towerVec) //ê²¨ëƒ¥ íƒ€ì›Œ
 	{
 		for (int i = 0 ; i < towerVec.size() ; i++ )
 		{
 			Tower t = towerVec.get(i);
-			if (t.getAttactType().equals("Áö»ó+°øÁß"))
-				t.»çÁ¤°Å¸®°è»ê(this);
+			if (t.getAttactType().equals("ì§€ìƒ+ê³µì¤‘"))
+				t.scopeDistance(this);
 			else if (type.equals(t.getAttactType()))
-				t.»çÁ¤°Å¸®°è»ê(this);			
+				t.scopeDistance(this);			
 		}
 	}
 
@@ -264,12 +264,12 @@ class Unit extends Canvas implements  ActionListener , MouseListener
 		inforPan.setBorder(new TitledBorder(""));
 		inforPan.setLayout(new BoxLayout(inforPan, BoxLayout.Y_AXIS));
 		inforPan.setAlignmentX(inforPan.LEFT_ALIGNMENT );
-		inforPan.add(new JLabel("ÀÌ¸§ : " + name));
-		inforPan.add(new JLabel("Å¸ÀÔ : " + type));
+		inforPan.add(new JLabel("ì´ë¦„ : " + name));
+		inforPan.add(new JLabel("íƒ€ì… : " + type));
 		inforPan.add(lifeJL);
 		inforPan.add(speedJL);
-		inforPan.add(»óÅÂJL);
-		inforPan.add(Æ¯Â¡JL);
+		inforPan.add(statusJL);
+		inforPan.add(featureJL);
 		inforPan.repaint();
 	}
 
@@ -291,10 +291,10 @@ class WhiteUnit extends Unit
 	Image img;
 	WhiteUnit(int way, Land land[][], GameManager gm , int level)
 	{
-		super(way, land, gm, "µ¿±×¶ó¹ÌÀ¯´Ö" , 20 * level * level, 100 , "Áö»ó", 20);
+		super(way, land, gm, "ë™ê·¸ë¼ë¯¸ìœ ë‹›" , 20 * level * level, 100 , "ì§€ìƒ", 20);
 		Toolkit toolit = Toolkit.getDefaultToolkit();
-		img = toolit.getImage("./ÀÌ¹ÌÁö/¶¥.gif");
-		Æ¯Â¡JL.setText("Æ¯Â¡ : ¾øÀ½");
+		img = toolit.getImage("./ì´ë¯¸ì§€/ë•….gif");
+		featureJL.setText("íŠ¹ì§• : ì—†ìŒ");
 	}
 	public void paint(Graphics g)
 	{		
@@ -309,13 +309,14 @@ class WhiteUnit extends Unit
 		{
 			g.setColor(Color.blue);
 			g.fillRect(1,1,18,18);			
+		
 		}
 				
-		if (µ¥¹ÌÁö)
+		if (damage)
 		{
 			g2.setColor(damageColor);
 			g2.fillOval(-7, -7, 14,14);
-			µ¥¹ÌÁö = false;
+			damage = false;
 		}
 		else
 		{
@@ -359,7 +360,7 @@ class ImageUnit extends Unit
 		//Unit(int way, Land lands[][], GameManager gm, String n , int l , int s , String t, int size)
 		super(way, land, gm, name , 20 * level * level, 100, type, 20);
 		toolkit = Toolkit.getDefaultToolkit();
-		img = toolkit.getImage("./ÀÌ¹ÌÁö/¶¥.gif");		
+		img = toolkit.getImage("./ì´ë¯¸ì§€/ë•….gif");		
 	}
 	public void paint(Graphics g)
 	{		
@@ -388,11 +389,11 @@ class ImageUnit extends Unit
 
 		g2.drawImage(image,-10,-10,20,20,this);
 				
-		if (µ¥¹ÌÁö)
+		if (damage)
 		{
 			g.setColor(damageColor);
 			g.fillOval(2, 2, 15,15);
-			µ¥¹ÌÁö = false;
+			damage = false;
 		}
 		if (freeze)
 		{
@@ -422,12 +423,12 @@ class DragonUnit extends ImageUnit
 	DragonUnit(int way, Land land[][], GameManager gm, int level)
 	{
 		//ImageUnit(int way, Land land[][], GameManager gm, String name, int level, String type)
-		super(way, land, gm, "¿ë" , level, "°øÁß");
-		img1 = toolkit.getImage("./ÀÌ¹ÌÁö/¿ë1.gif");
-		img2 = toolkit.getImage("./ÀÌ¹ÌÁö/¿ë2.gif");
-		img3 = toolkit.getImage("./ÀÌ¹ÌÁö/¿ë3.gif");
+		super(way, land, gm, "ìš©" , level, "ê³µì¤‘");
+		img1 = toolkit.getImage("./ì´ë¯¸ì§€/ìš©1.gif");
+		img2 = toolkit.getImage("./ì´ë¯¸ì§€/ìš©2.gif");
+		img3 = toolkit.getImage("./ì´ë¯¸ì§€/ìš©3.gif");
 		image = img2;
-		Æ¯Â¡JL.setText("Æ¯Â¡ : ³¯¶ó´Ù´Ô");
+		featureJL.setText("íŠ¹ì§• : ë‚ ë¼ë‹¤ë‹˜");
 	}	
 }
 
@@ -436,14 +437,14 @@ class BossUnit extends ImageUnit
 	BossUnit(int way, Land land[][], GameManager gm, int level)
 	{
 		//ImageUnit(int way, Land land[][], GameManager gm, String name, int level, String type)
-		super(way, land, gm, "·Îº¿" ,level, "Áö»ó");
-		img1 = toolkit.getImage("./ÀÌ¹ÌÁö/·Îº¿-°ÉÀ½1.gif");
-		img2 = toolkit.getImage("./ÀÌ¹ÌÁö/·Îº¿-°ÉÀ½.gif");
-		img3 = toolkit.getImage("./ÀÌ¹ÌÁö/·Îº¿-°ÉÀ½2.gif");
+		super(way, land, gm, "ë¡œë´‡" ,level, "ì§€ìƒ");
+		img1 = toolkit.getImage("./ì´ë¯¸ì§€/ë¡œë´‡-ê±¸ìŒ1.gif");
+		img2 = toolkit.getImage("./ì´ë¯¸ì§€/ë¡œë´‡-ê±¸ìŒ.gif");
+		img3 = toolkit.getImage("./ì´ë¯¸ì§€/ë¡œë´‡-ê±¸ìŒ2.gif");
 		image = img2;
 		life = 30 * level * 10;
-		lifeJL.setText("¶óÀÌÇÁ : " + String.valueOf(life));
-		Æ¯Â¡JL.setText("Æ¯Â¡ : Ã¼·Â 10¹è");
+		lifeJL.setText("ë¼ì´í”„ : " + String.valueOf(life));
+		featureJL.setText("íŠ¹ì§• : ì²´ë ¥ 10ë°°");
 	}	
 }
 class InsectUnit extends ImageUnit
@@ -451,15 +452,15 @@ class InsectUnit extends ImageUnit
 	InsectUnit(int way, Land land[][], GameManager gm, int level)
 	{
 		//ImageUnit(int way, Land land[][], GameManager gm, String name, int level, String type)
-		super(way, land, gm, "¹ú·¹" ,level, "Áö»ó");
-		img1 = toolkit.getImage("./ÀÌ¹ÌÁö/¿À°¢¹ú·¹1.gif");
-		img2 = toolkit.getImage("./ÀÌ¹ÌÁö/¿À°¢¹ú·¹2.gif");
-		img3 = toolkit.getImage("./ÀÌ¹ÌÁö/¿À°¢¹ú·¹3.gif");
+		super(way, land, gm, "ë²Œë ˆ" ,level, "ì§€ìƒ");
+		img1 = toolkit.getImage("./ì´ë¯¸ì§€/ì˜¤ê°ë²Œë ˆ1.gif");
+		img2 = toolkit.getImage("./ì´ë¯¸ì§€/ì˜¤ê°ë²Œë ˆ2.gif");
+		img3 = toolkit.getImage("./ì´ë¯¸ì§€/ì˜¤ê°ë²Œë ˆ3.gif");
 		image = img2;
 		speed = 70;
 		timer.setDelay(speed);
-		speedJL.setText("½ºÇÇµå : "+ String.valueOf(speed));
-		Æ¯Â¡JL.setText("Æ¯Â¡ : »¡¸®´Ş¸®±â");
+		speedJL.setText("ìŠ¤í”¼ë“œ : "+ String.valueOf(speed));
+		featureJL.setText("íŠ¹ì§• : ë¹¨ë¦¬ë‹¬ë¦¬ê¸°");
 	}	
 }
 
@@ -468,12 +469,12 @@ class parasiteUnit extends ImageUnit
 	parasiteUnit(int way, Land land[][], GameManager gm, int level)
 	{
 		//ImageUnit(int way, Land land[][], GameManager gm, String name, int level, String type)
-		super(way, land, gm, "ÀÚµ¿Â÷" ,level, "Áö»ó");
-		img1 = toolkit.getImage("./ÀÌ¹ÌÁö/ÀÚµ¿Â÷1.gif");
-		img2 = toolkit.getImage("./ÀÌ¹ÌÁö/ÀÚµ¿Â÷2.gif");
-		img3 = toolkit.getImage("./ÀÌ¹ÌÁö/ÀÚµ¿Â÷3.gif");
+		super(way, land, gm, "ìë™ì°¨" ,level, "ì§€ìƒ");
+		img1 = toolkit.getImage("./ì´ë¯¸ì§€/ìë™ì°¨1.gif");
+		img2 = toolkit.getImage("./ì´ë¯¸ì§€/ìë™ì°¨2.gif");
+		img3 = toolkit.getImage("./ì´ë¯¸ì§€/ìë™ì°¨3.gif");
 		image = img2;
 		parasite = true;
-		Æ¯Â¡JL.setText("Æ¯Â¡ : ¸¶¹ı¿¡ ¾È°É¸²");
+		featureJL.setText("íŠ¹ì§• : ë§ˆë²•ì— ì•ˆê±¸ë¦¼");
 	}	
 }
